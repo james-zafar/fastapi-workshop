@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.api.resources.status import Status
-from app.api.store.model_store import ModelStore
+from app.api.store import ModelStore
 
 
 class TestPostModels(unittest.TestCase):

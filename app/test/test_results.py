@@ -6,8 +6,8 @@ from typing import Any
 
 from fastapi.testclient import TestClient
 
-from app.api.resources.status import Status
-from app.api.store.model_store import ModelStore
+from app.api.resources import Status
+from app.api.store import ModelStore
 from app.main import app
 
 

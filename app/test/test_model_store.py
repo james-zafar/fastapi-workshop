@@ -2,10 +2,8 @@ import unittest
 import uuid
 import random
 
-from app.api.resources.model import Model
-from app.api.resources.results import ResultItem
-from app.api.resources.status import Status
-from app.api.store.model_store import ModelStore
+from app.api.resources import Model, ResultItem, Status
+from app.api.store import ModelStore
 
 
 class TestModelStore(unittest.TestCase):

@@ -5,9 +5,9 @@ import random
 
 from fastapi.testclient import TestClient
 
-from app.api.resources.model import Model
 from app.main import app
-from app.api.store.model_store import ModelStore
+from app.api.resources import Model
+from app.api.store import ModelStore
 
 
 class TestPostModels(unittest.TestCase):
