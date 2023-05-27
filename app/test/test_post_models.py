@@ -26,7 +26,7 @@ class TestPostModels(unittest.TestCase):
                 'data_api_key': 'my_example_api_key'
             }
         }
-        response = self._test_client.post("/models", json=model_config)
+        response = self._test_client.post('/models', json=model_config)
         # Status code should be 201 for a good input
         self.assertEqual(response.status_code, 201)
         resp_json = response.json()
@@ -52,7 +52,7 @@ class TestPostModels(unittest.TestCase):
                 'data_api_key': 'my_example_api_key'
             }
         }
-        response = self._test_client.post("/models", json=model_config)
+        response = self._test_client.post('/models', json=model_config)
         # This should return 400, but FastAPI validation rejects the input with a 422 error
         self.assertEqual(response.status_code, 422)
 
@@ -62,7 +62,7 @@ class TestPostModels(unittest.TestCase):
                 'data_api_key': 'my_example_api_key'
             }
         }
-        response = self._test_client.post("/models", json=model_config)
+        response = self._test_client.post('/models', json=model_config)
         # This should return 400, but FastAPI validation rejects the input with a 422 error
         self.assertEqual(response.status_code, 422)
         model_config = {
@@ -70,9 +70,20 @@ class TestPostModels(unittest.TestCase):
                 'data_source': 'https://myexampleapi.com',
             }
         }
-        response = self._test_client.post("/models", json=model_config)
+        response = self._test_client.post('/models', json=model_config)
         # This should return 400, but FastAPI validation rejects the input with a 422 error
         self.assertEqual(response.status_code, 422)
+
+    def test_post_models_with_inaccessible_url(self) -> None:
+        # We should get a Bad Request error if the data source is inaccessible (contains airbus.com)
+        model_config = {
+            'config': {
+                'data_source': 'https://airbus.com/some/data/source',
+                'data_api_key': 'my_example_api_key'
+            }
+        }
+        response = self._test_client.post('/models', json=model_config)
+        self.assertEqual(response.status_code, 400)
 
 
 if __name__ == '__main__':

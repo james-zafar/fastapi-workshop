@@ -103,7 +103,7 @@ paths:
               id: 'ca4d16b6-0e8d-4426-9812-01f1f8529822'
               status: completed
               results:
-                total_clusters: 3
+                cluster_count: 3
                 total_data_points: 150
                 clusters:
                   - label: '1.0'
@@ -189,7 +189,7 @@ definitions:
           The results of a successful experiment, typically absent unless the status is `completed`.
         type: object
         properties:
-          total_clusters:
+          cluster_count:
             description: |
               The number of unique clusters found
             type: integer
@@ -204,7 +204,7 @@ definitions:
             items:
               $ref: '#/definitions/Cluster'
         required:
-          - total_clusters
+          - cluster_count
           - total_data_points
           - clusters
     required:

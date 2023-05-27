@@ -1,6 +1,7 @@
 import re
 import unittest
 import uuid
+import random
 
 from fastapi.testclient import TestClient
 
@@ -14,6 +15,7 @@ class TestPostModels(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        random.seed(500)
         cls._test_client = TestClient(app)
 
     def tearDown(self) -> None:

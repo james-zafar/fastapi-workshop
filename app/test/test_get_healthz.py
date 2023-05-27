@@ -13,5 +13,5 @@ class TestGetHealthz(unittest.TestCase):
         cls._test_client = TestClient(app)
 
     def test_get_healthz(self) -> None:
-        response = self._test_client.get("/healthz")
+        response = self._test_client.get('/healthz')
         self.assertEqual(response.status_code, 204)
