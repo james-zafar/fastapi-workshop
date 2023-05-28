@@ -13,7 +13,7 @@ models_router = APIRouter(prefix='/models/{model_id}')
 def get_model(model_id: uuid.UUID, request: Request) -> JSONResponse:
     if not (model := request.app.state.model_store.get(str(model_id))):
         return JSONResponse(content=new_error_response([ModelNotFoundError()]), status_code=404)
-    if random.randint(0, 101) % 25 == 0:
+    if random.randint(0, 100) % 100 == 0:
         raise HTTPException(detail=new_error_response([InternalServerError()]), status_code=500)
     return JSONResponse(content=model[0].json())
 
@@ -22,7 +22,7 @@ def get_model(model_id: uuid.UUID, request: Request) -> JSONResponse:
 def delete_model(model_id: uuid.UUID, request: Request) -> None:
     if not (model := request.app.state.model_store.get(str(model_id))):
         raise HTTPException(detail=new_error_response([ModelNotFoundError()]), status_code=404)
-    if random.randint(0, 101) % 25 == 0:
+    if random.randint(0, 100) % 50 == 0:
         raise HTTPException(detail=new_error_response([InternalServerError()]), status_code=500)
     del request.app.state.model_store[str(model[0].id)]
 
