@@ -6,7 +6,7 @@ from app.api.resources.status import Status
 
 @dataclass
 class Model:
-    id: uuid.uuid4
+    id: uuid.UUID
     status: Status
 
     @classmethod

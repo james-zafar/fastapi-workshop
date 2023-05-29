@@ -19,8 +19,8 @@ class ResultItem:
 
 @dataclass
 class Results:
-    experiment_id: uuid.uuid4
-    model_id: uuid.uuid4
+    experiment_id: uuid.UUID
+    model_id: uuid.UUID
     results: list[ResultItem]
 
     def json(self) -> dict[str, Any]:
