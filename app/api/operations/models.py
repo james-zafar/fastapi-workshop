@@ -14,7 +14,7 @@ def get_model(model_id: uuid.UUID, request: Request) -> JSONResponse:
     if not (model := request.app.state.model_store.get(str(model_id))):
         return JSONResponse(content=new_error_response([ModelNotFoundError()]), status_code=404)
     if random.randint(0, 100) % 100 == 0:
-        raise HTTPException(detail=new_error_response([InternalServerError()]), status_code=500)
+        return JSONResponse(content=new_error_response([InternalServerError()]), status_code=500)
     return JSONResponse(content=model[0].json())
 
 
