@@ -3,7 +3,7 @@ from typing import Final
 
 import uvicorn as uvicorn
 from fastapi import FastAPI, APIRouter
-from app.api.store.model_store import ModelStore
+from app.store import ModelStore
 from app.api.operations import healthz_router, models_router, post_models_router, results_router
 
 BASE_PATH: Final[str] = '/v1'
