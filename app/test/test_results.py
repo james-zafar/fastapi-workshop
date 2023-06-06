@@ -54,7 +54,7 @@ class TestGetResults(unittest.TestCase):
         self.assertEqual(results.status_code, 200)
         results_json = results.json()
         # There should be only 1 key in the results
-        self.assertCountEqual(['results'], results_json)
+        self.assertCountEqual(['id', 'results'], results_json)
         # There should be 3 keys within results
         self.assertCountEqual(['cluster_count', 'total_data_points', 'clusters'], results_json['results'])
         # There should be only 1 cluster

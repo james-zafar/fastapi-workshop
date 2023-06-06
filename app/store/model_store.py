@@ -1,5 +1,6 @@
 import random
 import string
+import uuid
 from collections.abc import MutableMapping, Iterator
 from dataclasses import dataclass, field
 from typing import Any, TypeVar
@@ -9,7 +10,7 @@ from app.api.resources.results import ResultItem
 from app.api.resources.status import Status
 
 KT = TypeVar('KT', bound=str)
-VT = TypeVar('VT', bound=tuple[Model, list[ResultItem] | None])
+VT = TypeVar('VT', bound=tuple[Model, tuple[str, list[ResultItem] | None]])
 
 
 def _make_results() -> list[ResultItem]:
@@ -34,12 +35,14 @@ class ModelStore(MutableMapping[KT, VT]):
             raise ValueError('A model that has failed or completed cannot have its status changed')
         model.status = status
 
-    def get_results(self, model_id: KT) -> list[ResultItem] | None:
+    def get_results(self, model_id: KT) -> tuple[str, list[ResultItem]] | None:
         if self[model_id][0].status != Status.COMPLETED:
             return None
         if not (results := self[model_id][1]):
             results = _make_results()
-            self[model_id] = (self[model_id][0], results)
+            results_id = uuid.uuid4()
+            self[model_id] = (self[model_id][0], (str(results_id), results))
+            return str(results_id), results
         return results
 
     def get(self, model_id: KT) -> VT | None:
