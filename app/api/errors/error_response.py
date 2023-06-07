@@ -24,5 +24,5 @@ class Error:
     def __new__(cls: type[T], *args: Any, **kwargs: Any) -> T:
         if cls is Error:
             raise TypeError(f'The class \'{cls.__name__}\' can not be instantiated')
-        return object.__new__(cls, *args, **kwargs)
+        return super().__new__(cls, *args, **kwargs)
 
