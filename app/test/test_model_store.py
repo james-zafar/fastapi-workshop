@@ -99,7 +99,9 @@ class TestModelStore(unittest.TestCase):
         self._model_store.set_status(str(model.id), Status.COMPLETED)
 
         random.seed(5)
-        results = self._model_store.get_results(str(model.id))
+        results_id, results = self._model_store.get_results(str(model.id))
+        self.assertIsInstance(results_id, str)
+        _ = uuid.UUID(results_id)
         self.assertIsInstance(results, list)
         # There should be 5 clusters
         self.assertEqual(len(results), 8)
@@ -113,7 +115,9 @@ class TestModelStore(unittest.TestCase):
             self.assertGreater(len(cluster.members), 0)
             self.assertGreater(cluster.occurrences, 0)
         # The results returned from get_results should match those stored as part of the ModelStore
-        self.assertEqual(results, self._model_store[str(model.id)][1])
+        store_res_id, store_results = self._model_store[str(model.id)][1]
+        self.assertEqual(results_id, store_res_id)
+        self.assertEqual(results, store_results)
 
 
 if __name__ == '__main__':
